@@ -1,0 +1,90 @@
+Project Overview: E-Commerce Website
+
+Project Description:
+
+I developed a full-fledged e-commerce website that allows users to browse and purchase products online.
+The project consists of both frontend and backend components for seamless functionality.
+
+
+1. Frontend:
+
+The frontend is built using React, providing an interactive and dynamic user interface.
+I utilized various components, such as forms, buttons, navigation bars, and modals, to create a rich user experience.
+React Router is used to implement client-side routing, enabling seamless navigation between different screens.   
+
+
+
+2. Backend:
+
+The backend is built using Node.js and Express.js, providing the necessary API endpoints for frontend interaction.
+I implemented secure user authentication and authorization, allowing users to sign up, sign in, and manage their profiles.
+Token-based authentication was used to ensure secure communication between the frontend and backend.
+
+
+
+3. Global State Management:
+
+I employed the Context API along with the useReducer hook to manage global application state.
+The Store context provided a centralized location to manage user information, cart items, and other relevant data.
+
+
+
+4. User Authentication and Authorization:
+
+Users can sign up and sign in securely.
+Authenticated users have access to their profiles, order history, and the ability to update their details.
+Admin users have additional privileges, such as managing products, orders, and users.
+
+
+
+5. Product Listings and Search:
+
+I fetched product data from the backend API and displayed it on the frontend.
+Users can search for products based on keywords and filter products by categories.
+The sidebar navigation menu provides an easy way to explore products by category.
+
+
+
+6. Shopping Cart and Checkout:
+
+Users can add products to their shopping carts and proceed to checkout.
+Shipping address and payment method details are collected during checkout for accurate order processing.
+
+
+
+7. Order Management:
+
+Users can view their order history, including order details and status.
+Admin users have access to an admin dashboard where they can manage orders and user data.
+
+
+
+8. Responsive Design:
+
+The website is designed to be responsive, adapting to different screen sizes and devices.
+The navigation menu collapses into a sidebar on smaller screens to optimize the user experience.
+
+
+
+9. Toast Notifications:
+
+I integrated the react-toastify library to display toast notifications for various actions, such as sign in, sign out, and form submissions.
+
+
+10. Fetching Categories:
+
+Categories are fetched from the backend API and displayed as navigation links in the sidebar.
+Clicking on a category link updates the displayed products based on the selected category.
+
+
+11. Footer and Contact Information:
+
+The footer contains the company's logo, social media links, and copyright information.
+A contact section provides users with information on how to reach out to the company.
+
+
+12. Key Takeaways:
+
+This project showcases my ability to build a fully functional e-commerce website using modern technologies and best practices.
+I've demonstrated proficiency in frontend and backend development, user authentication, state management, and API integration.
+The project serves as a valuable addition to my portfolio, highlighting my skills in web development and UI/UX design.
