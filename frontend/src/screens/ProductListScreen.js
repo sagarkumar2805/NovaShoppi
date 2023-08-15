@@ -9,6 +9,7 @@ import { Store } from '../Store';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -80,7 +81,7 @@ export default function ProductListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/products/admin?page=${page} `, {
+        const { data } = await axios.get(BASE_URL+`/api/products/admin?page=${page} `, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -99,7 +100,7 @@ export default function ProductListScreen() {
     if (window.confirm('Are you sure to create?')) {
       try {
         dispatch({ type: 'CREATE_REQUEST' });
-        const { data } = await axios.post(
+        const { data } = await axios.post(BASE_URL+
           '/api/products',
           {},
           {
@@ -121,7 +122,7 @@ export default function ProductListScreen() {
   const deleteHandler = async (product) => {
     if (window.confirm('Are you sure to delete?')) {
       try {
-        await axios.delete(`/api/products/${product._id}`, {
+        await axios.delete(BASE_URL+`/api/products/${product._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('product deleted successfully');
@@ -171,7 +172,7 @@ export default function ProductListScreen() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
+              {products?.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -200,8 +201,8 @@ export default function ProductListScreen() {
             </tbody>
           </table>
           <div>
-            {[...Array(pages).keys()].map((x) => (
-              <Link
+            {[...Array(pages).keys()]?.map((x) => (
+              <Link id="allLinks"
                 className={x + 1 === Number(page) ? 'btn text-bold' : 'btn'}
                 key={x + 1}
                 to={`/admin/products?page=${x + 1}`}

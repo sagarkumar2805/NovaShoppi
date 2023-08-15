@@ -7,6 +7,7 @@ import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import Button from 'react-bootstrap/esm/Button';
+import { BASE_URL } from "../config";
 
 // Reducer function for managing component state
 const reducer = (state, action) => {
@@ -40,7 +41,7 @@ export default function OrderHistoryScreen() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         // Fetch order history data from the API
-        const { data } = await axios.get('/api/orders/mine', {
+        const { data } = await axios.get(BASE_URL+'/api/orders/mine', {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Dispatch fetch success action with fetched data
@@ -82,7 +83,7 @@ export default function OrderHistoryScreen() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders?.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>

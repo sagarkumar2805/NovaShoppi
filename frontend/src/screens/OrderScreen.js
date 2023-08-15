@@ -14,6 +14,7 @@ import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import { toast } from 'react-toastify';
+import { BASE_URL } from "../config";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -95,7 +96,7 @@ export default function OrderScreen() {
     return actions.order.capture().then(async function (details) {
       try {
         dispatch({ type: 'PAY_REQUEST' });
-        const { data } = await axios.put(
+        const { data } = await axios.put(BASE_URL+
           `/api/orders/${order._id}/pay`,
           details,
           {
@@ -118,7 +119,7 @@ export default function OrderScreen() {
     const fetchOrder = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(BASE_URL+`/api/orders/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -145,7 +146,7 @@ export default function OrderScreen() {
       }
     } else {
       const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get('/api/keys/paypal', {
+        const { data: clientId } = await axios.get(BASE_URL+'/api/keys/paypal', {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         paypalDispatch({
@@ -172,7 +173,7 @@ export default function OrderScreen() {
   async function deliverOrderHandler() {
     try {
       dispatch({ type: 'DELIVER_REQUEST' });
-      const { data } = await axios.put(
+      const { data } = await axios.put(BASE_URL+
         `/api/orders/${order._id}/deliver`,
         {},
         {
@@ -237,7 +238,7 @@ export default function OrderScreen() {
             <Card.Body>
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
-                {order.orderItems.map((item) => (
+                {order.orderItems?.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
@@ -246,7 +247,7 @@ export default function OrderScreen() {
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <Link id="allLinks" to={`/product/${item.slug}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
                         <span>{item.quantity}</span>

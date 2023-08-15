@@ -105,6 +105,16 @@
     font-size: large;
   }
 
+  #allLinks{
+    text-decoration: none;
+    color: #282c34;
+    font-weight: bold;
+  }
+
+  #allLinks:hover{
+    color: #75474c;
+  }
+
 
 
 

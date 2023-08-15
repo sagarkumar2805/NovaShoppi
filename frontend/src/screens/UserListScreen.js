@@ -8,6 +8,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
 
 // Reducer function to manage component state
 const reducer = (state, action) => {
@@ -57,7 +58,7 @@ export default function UserListScreen() {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         // Fetch users data from the API
-        const { data } = await axios.get('/api/users', {
+        const { data } = await axios.get(BASE_URL+'/api/users', {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Dispatch fetch success action with fetched data
@@ -84,7 +85,7 @@ export default function UserListScreen() {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
         // Delete the user using the API
-        await axios.delete(`/api/users/${user._id}`, {
+        await axios.delete(BASE_URL+`/api/users/${user._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Display success message and dispatch delete success action
@@ -127,7 +128,7 @@ export default function UserListScreen() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users?.map((user) => (
               <tr key={user._id}>
                 <td>{user._id}</td>
                 <td>{user.name}</td>

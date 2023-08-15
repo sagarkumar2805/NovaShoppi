@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
 
 export default function SignupScreen() {
   // Get navigation function and redirect URL from location
@@ -36,7 +37,7 @@ export default function SignupScreen() {
     }
     try {
       // Send signup request to the API
-      const { data } = await Axios.post('/api/users/signup', {
+      const { data } = await Axios.post(BASE_URL+'/api/users/signup', {
         name,
         email,
         password,
@@ -103,7 +104,7 @@ export default function SignupScreen() {
         <div className="mb-3">
           {/* Link to the Sign-In screen */}
           Already have an account?{' '}
-          <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+          <Link id="allLinks" to={`/signin?redirect=${redirect}`}>Sign-In</Link>
         </div>
       </Form>
     </Container>

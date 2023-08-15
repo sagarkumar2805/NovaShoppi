@@ -10,6 +10,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
+
 
 // Reducer to manage component state during fetch and update actions
 const reducer = (state, action) => {
@@ -59,7 +61,7 @@ export default function UserEditScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/users/${userId}`, {
+        const { data } = await axios.get(BASE_URL+`/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Set local state with fetched user data
@@ -84,7 +86,7 @@ export default function UserEditScreen() {
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
       // Send user data update request to the API
-      await axios.put(
+      await axios.put(BASE_URL+
         `/api/users/${userId}`,
         { _id: userId, name, email, isAdmin },
         {

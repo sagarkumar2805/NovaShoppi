@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { Store } from '../Store';
+import { BASE_URL } from "../config";
 
 export default function PaymentMethodScreen() {
   const navigate = useNavigate();

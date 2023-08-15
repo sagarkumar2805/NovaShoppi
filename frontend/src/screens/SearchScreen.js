@@ -12,6 +12,8 @@ import MessageBox from "../components/MessageBox";
 import Button from "react-bootstrap/Button";
 import Product from "../components/Product";
 import LinkContainer from "react-router-bootstrap/LinkContainer";
+import { BASE_URL } from "../config";
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -91,7 +93,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
+        const { data } = await axios.get(BASE_URL+
           `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
@@ -109,7 +111,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(BASE_URL+`/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -138,16 +140,16 @@ export default function SearchScreen() {
           <div>
             <ul>
               <li>
-                <Link
+                <Link id="allLinks"
                   className={"all" === category ? "text-bold" : ""}
                   to={getFilterUrl({ category: "all" })}
                 >
                   Any
                 </Link>
               </li>
-              {categories.map((c) => (
+              {categories?.map((c) => (
                 <li key={c}>
-                  <Link
+                  <Link id="allLinks"
                     className={c === category ? "text-bold" : ""}
                     to={getFilterUrl({ category: c })}
                   >
@@ -161,16 +163,16 @@ export default function SearchScreen() {
             <h3>Price</h3>
             <ul>
               <li>
-                <Link
+                <Link id="allLinks"
                   className={"all" === price ? "text-bold" : ""}
                   to={getFilterUrl({ price: "all" })}
                 >
                   Any
                 </Link>
               </li>
-              {prices.map((p) => (
+              {prices?.map((p) => (
                 <li key={p.value}>
-                  <Link
+                  <Link id="allLinks"
                     to={getFilterUrl({ price: p.value })}
                     className={p.value === price ? "text-bold" : ""}
                   >
@@ -183,9 +185,9 @@ export default function SearchScreen() {
           <div>
             <h3>Avg. Customer Review</h3>
             <ul>
-              {ratings.map((r) => (
+              {ratings?.map((r) => (
                 <li key={r.name}>
-                  <Link
+                  <Link id="allLinks"
                     to={getFilterUrl({ rating: r.rating })}
                     className={`${r.rating}` === `${rating}` ? "text-bold" : ""}
                   >
@@ -194,7 +196,7 @@ export default function SearchScreen() {
                 </li>
               ))}
               <li>
-                <Link
+                <Link id="allLinks"
                   to={getFilterUrl({ rating: "all" })}
                   className={rating === "all" ? "text-bold" : ""}
                 >
@@ -252,7 +254,7 @@ export default function SearchScreen() {
               )}
 
               <Row>
-                {products.map((product) => (
+                {products?.map((product) => (
                   <Col sm={6} lg={4} className="mb-3" key={product._id}>
                     <Product product={product}></Product>
                   </Col>
@@ -260,7 +262,7 @@ export default function SearchScreen() {
               </Row>
 
               <div>
-                {[...Array(pages).keys()].map((x) => (
+                {[...Array(pages).keys()]?.map((x) => (
                   <LinkContainer
                     to={{
                       pathname: "/search",

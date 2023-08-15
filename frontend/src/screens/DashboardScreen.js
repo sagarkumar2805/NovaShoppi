@@ -8,6 +8,7 @@ import MessageBox from '../components/MessageBox';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import { BASE_URL } from "../config";
 
 // Reducer function for managing component state
 const reducer = (state, action) => {
@@ -42,7 +43,7 @@ export default function DashboardScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get('/api/orders/summary', {
+        const { data } = await axios.get(BASE_URL+'/api/orders/summary', {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Dispatch success action with fetched data
@@ -89,8 +90,8 @@ export default function DashboardScreen() {
                 <Card.Body>
                   <Card.Title>
                     {/* Display number of orders */}
-                    {summary.orders && summary.users[0]
-                      ? summary.orders[0].numOrders
+                    {summary.orders && summary?.users[0]
+                      ? summary.orders[0]?.numOrders
                       : 0}
                   </Card.Title>
                   <Card.Text>Orders</Card.Text>
@@ -103,7 +104,7 @@ export default function DashboardScreen() {
                   <Card.Title>
                     {/* Display total sales */}
                     ${summary.orders && summary.users[0]
-                      ? summary.orders[0].totalSales.toFixed(2)
+                      ? summary.orders[0]?.totalSales.toFixed(2)
                       : 0}
                   </Card.Title>
                   <Card.Text>Orders</Card.Text>
@@ -126,7 +127,7 @@ export default function DashboardScreen() {
                 loader={<div>Loading Chart...</div>}
                 data={[
                   ['Date', 'Sales'],
-                  ...summary.dailyOrders.map((x) => [x._id, x.sales]),
+                  ...summary.dailyOrders?.map((x) => [x._id, x.sales]),
                 ]}
               ></Chart>
             )}
@@ -146,7 +147,7 @@ export default function DashboardScreen() {
                 loader={<div>Loading Chart...</div>}
                 data={[
                   ['Category', 'Products'],
-                  ...summary.productCategories.map((x) => [x._id, x.count]),
+                  ...summary.productCategories?.map((x) => [x._id, x.count]),
                 ]}
               ></Chart>
             )}

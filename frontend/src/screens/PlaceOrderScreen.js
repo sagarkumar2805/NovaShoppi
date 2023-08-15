@@ -12,6 +12,7 @@ import { getError } from '../utils';
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
 import LoadingBox from '../components/LoadingBox';
+import { BASE_URL } from "../config";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -48,7 +49,7 @@ export default function PlaceOrderScreen() {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
 
-      const { data } = await Axios.post(
+      const { data } = await Axios.post(BASE_URL+
         '/api/orders',
         {
           orderItems: cart.cartItems,
@@ -99,7 +100,7 @@ export default function PlaceOrderScreen() {
                 {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
                 {cart.shippingAddress.country}
               </Card.Text>
-              <Link to="/shipping">Edit</Link>
+              <Link id="allLinks" to="/shipping">Edit</Link>
             </Card.Body>
           </Card>
 
@@ -109,7 +110,7 @@ export default function PlaceOrderScreen() {
               <Card.Text>
                 <strong>Method:</strong> {cart.paymentMethod}
               </Card.Text>
-              <Link to="/payment">Edit</Link>
+              <Link id="allLinks" to="/payment">Edit</Link>
             </Card.Body>
           </Card>
 
@@ -117,7 +118,7 @@ export default function PlaceOrderScreen() {
             <Card.Body>
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
-                {cart.cartItems.map((item) => (
+                {cart.cartItems?.map((item) => (
                   <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
@@ -126,7 +127,7 @@ export default function PlaceOrderScreen() {
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <Link id="allLinks" to={`/product/${item.slug}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
                         <span>{item.quantity}</span>
@@ -136,7 +137,7 @@ export default function PlaceOrderScreen() {
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to="/cart">Edit</Link>
+              <Link id="allLinks" to="/cart">Edit</Link>
             </Card.Body>
           </Card>
         </Col>

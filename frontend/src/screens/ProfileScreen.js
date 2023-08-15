@@ -6,6 +6,7 @@ import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import axios from 'axios';
+import { BASE_URL } from "../config";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,7 +37,7 @@ export default function ProfileScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put(
+      const { data } = await axios.put(BASE_URL+
         '/api/users/profile',
         {
           name,

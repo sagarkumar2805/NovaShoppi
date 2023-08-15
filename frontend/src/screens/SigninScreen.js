@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
 
 export default function SigninScreen() {
   // Get navigation function and redirect URL from location
@@ -29,7 +30,7 @@ export default function SigninScreen() {
     e.preventDefault();
     try {
       // Send signin request to the API
-      const { data } = await Axios.post('/api/users/signin', {
+      const { data } = await Axios.post(BASE_URL+'/api/users/signin', {
         email,
         password,
       });
@@ -82,7 +83,7 @@ export default function SigninScreen() {
         <div className="mb-3">
           {/* Link to the Signup screen */}
           New customer?{' '}
-          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+          <Link id="allLinks" to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>
       </Form>
     </Container>

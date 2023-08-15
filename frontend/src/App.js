@@ -34,6 +34,7 @@ import OrderListScreen from "./screens/OrderListScreen";
 import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import "./App.css";
+import { BASE_URL } from "./config";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -52,7 +53,7 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(BASE_URL+`/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -91,7 +92,7 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
-                  <Link to="/cart" className="nav-link">
+                  <Link id="allLinks" to="/cart" className="nav-link">
                     Cart
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
@@ -108,7 +109,7 @@ function App() {
                         <NavDropdown.Item>Order History</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
-                      <Link
+                      <Link id="allLinks"
                         className="dropdown-item"
                         to="#signout"
                         onClick={signoutHandler}
@@ -117,7 +118,7 @@ function App() {
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link className="nav-link" to="/signin">
+                    <Link id="allLinks" className="nav-link" to="/signin">
                       Sign In
                     </Link>
                   )}
@@ -154,7 +155,7 @@ function App() {
             <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
                   to={{

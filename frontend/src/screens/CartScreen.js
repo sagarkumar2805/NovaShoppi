@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from "../config";
 
 export default function CartScreen() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function CartScreen() {
   // Function to update the quantity of a cart item
   const updateCartHandler = async (item, quantity) => {
     // Check if the product is still in stock
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(BASE_URL+`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
@@ -57,12 +58,12 @@ export default function CartScreen() {
           {/* Display a message if the cart is empty */}
           {cartItems.length === 0 ? (
             <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>
+              Cart is empty. <Link id="allLinks" to="/">Go Shopping</Link>
             </MessageBox>
           ) : (
             <ListGroup>
               {/* Display the cart items */}
-              {cartItems.map((item) => (
+              {cartItems?.map((item) => (
                 <ListGroup.Item key={item._id}>
                   <Row className="align-items-center">
                     <Col md={4}>
@@ -72,7 +73,7 @@ export default function CartScreen() {
                         alt={item.name}
                         className="img-fluid rounded img-thumbnail"
                       ></img>{' '}
-                      <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                      <Link id="allLinks" to={`/product/${item.slug}`}>{item.name}</Link>
                     </Col>
                     <Col md={3}>
                       {/* Button to decrease item quantity */}

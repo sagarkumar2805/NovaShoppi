@@ -8,6 +8,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { BASE_URL } from "../config";
 
 // Reducer function to manage component state
 const reducer = (state, action) => {
@@ -56,7 +57,7 @@ export default function OrderListScreen() {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         // Fetch orders data from the API
-        const { data } = await axios.get('/api/orders', {
+        const { data } = await axios.get(BASE_URL+'/api/orders', {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Dispatch fetch success action with fetched data
@@ -83,7 +84,7 @@ export default function OrderListScreen() {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
         // Delete the order using the API
-        await axios.delete(`/api/orders/${order._id}`, {
+        await axios.delete(BASE_URL+`/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         // Display success message and dispatch delete success action
@@ -128,7 +129,7 @@ export default function OrderListScreen() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders?.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.user ? order.user.name : 'DELETED USER'}</td>

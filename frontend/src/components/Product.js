@@ -3,6 +3,7 @@ import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { BASE_URL } from "../config";
 
 // Component to display individual product details
 function Product(props) {
@@ -22,7 +23,7 @@ function Product(props) {
     // Determine the quantity to add (increase quantity if the item is already in the cart)
     const quantity = existItem ? existItem.quantity + 1 : 1;
     // Fetch product data from the server
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(BASE_URL+`/api/products/${item._id}`);
     // Check if the product is in stock
     if (data.countInStock < quantity) {
       window.alert('Sorry. Product is out of stock');
@@ -38,12 +39,12 @@ function Product(props) {
   return (
     <div className='shadow p-3 mb-4 bg-body rounded'>
       {/* Link to the product details page */}
-      <Link to={`/product/${product.slug}`}>
+      <Link id="allLinks" to={`/product/${product.slug}`}>
         <img src={product.image} className='img-fluid' alt={product.name} />
       </Link>
       <div className='product-card'>
         {/* Link to the product details page */}
-        <Link to={`/product/${product.slug}`}>
+        <Link id="allLinks" to={`/product/${product.slug}`}>
           <h4 className='product-name'>{product.name}</h4>
         </Link>
         {/* Display product rating and reviews */}
